@@ -23,7 +23,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
-          submodules: 'recursive'
+          submodules: 'true'
+          token: ${{ secrets.AUTH_TOKEN }}
 
       - run: |
           echo "GithubPassword=${{ secrets.AUTH_TOKEN }}" >> gradle.properties
@@ -56,7 +57,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: 'recursive'
+          submodules: 'true'
+          token: ${{ secrets.AUTH_TOKEN }}
 
       - run: |
           echo "GithubPassword=${{ secrets.AUTH_TOKEN }}" >> gradle.properties
@@ -84,7 +86,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: 'recursive'
+          submodules: 'true'
+          token: ${{ secrets.AUTH_TOKEN }}
 
       - run: |
           echo "GithubPassword=${{ secrets.AUTH_TOKEN }}" >> gradle.properties
