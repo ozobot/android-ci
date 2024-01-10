@@ -1,0 +1,105 @@
+name: Checks
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+    secrets:
+      AUTH_TOKEN:
+        required: true
+        type: string
+      AUTH_USER:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - run: |
+          echo "GithubPassword=${{ secrets.AUTH_TOKEN }}" >> gradle.properties
+          echo "GithubUsername=${{ secrets.AUTH_USER }}" >> gradle.properties
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - uses: android-actions/setup-android@v2
+
+      - uses: gradle/gradle-build-action@v2.4.2
+        with:
+          arguments: test
+
+      - uses: EnricoMi/publish-unit-test-result-action@v2.6.2
+        if: always()
+        with:
+          junit_files: "**/test-results/**/*.xml"
+
+  compatibility:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: |
+          echo "GithubPassword=${{ secrets.AUTH_TOKEN }}" >> gradle.properties
+          echo "GithubUsername=${{ secrets.AUTH_USER }}" >> gradle.properties
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - uses: android-actions/setup-android@v2
+
+      - uses: gradle/gradle-build-action@v2.4.2
+        with:
+          arguments: apiCheck
+
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: |
+          echo "GithubPassword=${{ secrets.AUTH_TOKEN }}" >> gradle.properties
+          echo "GithubUsername=${{ secrets.AUTH_USER }}" >> gradle.properties
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - uses: android-actions/setup-android@v2
+
+      - uses: gradle/gradle-build-action@v2.4.2
+        with:
+          arguments: detekt
+
+      - uses: jwgmeligmeyling/checkstyle-github-action@v1.2
+        if: always()
+        with:
+          path: '**/merge.xml'
