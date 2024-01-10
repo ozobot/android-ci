@@ -4,6 +4,7 @@ on:
   workflow_call:
     inputs:
       ref:
+        type: string
         required: true
     secrets:
       AUTH_TOKEN:
