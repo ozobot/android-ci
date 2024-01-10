@@ -12,10 +12,8 @@ on:
     secrets:
       AUTH_TOKEN:
         required: true
-        type: string
       AUTH_USER:
         required: true
-        type: string
 
 jobs:
   publish-aar:
