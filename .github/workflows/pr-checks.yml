@@ -39,7 +39,7 @@ jobs:
 
       - uses: android-actions/setup-android@v3
 
-      - uses: gradle/gradle-build-action@v2.4.2
+      - uses: gradle/gradle-build-action@v2.11.1
         with:
           arguments: test
 
@@ -73,7 +73,7 @@ jobs:
 
       - uses: android-actions/setup-android@v3
 
-      - uses: gradle/gradle-build-action@v2.4.2
+      - uses: gradle/gradle-build-action@v2.11.1
         with:
           arguments: apiCheck
 
@@ -102,7 +102,7 @@ jobs:
 
       - uses: android-actions/setup-android@v3
 
-      - uses: gradle/gradle-build-action@v2.4.2
+      - uses: gradle/gradle-build-action@v2.11.1
         with:
           arguments: detekt
 
