@@ -19,7 +19,7 @@ jobs:
   publish-aar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: 'true'
           token: ${{ secrets.AUTH_TOKEN }}
