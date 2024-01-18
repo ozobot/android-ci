@@ -17,7 +17,7 @@ on:
 
 jobs:
   publish-aar:
-    runs-on: ubuntu-latest
+    runs-on: prague-runners
     steps:
       - uses: actions/checkout@v4
         with:
