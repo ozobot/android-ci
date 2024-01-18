@@ -20,6 +20,8 @@ jobs:
     runs-on: prague-runners
     steps:
       - run: |
+          # "git" required by "actions/checkout"
+          # "unzip" required by "android-actions/setup-android"
           sudo apt update
           sudo apt install -y git unzip
 

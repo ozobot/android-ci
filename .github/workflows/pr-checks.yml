@@ -21,6 +21,12 @@ jobs:
       checks: write
       pull-requests: write
     steps:
+      - run: |
+          # "git" required by "actions/checkout"
+          # "unzip" required by "android-actions/setup-android"
+          sudo apt update
+          sudo apt install -y git unzip
+
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.ref }}
@@ -56,6 +62,12 @@ jobs:
       checks: write
       pull-requests: write
     steps:
+      - run: |
+          # "git" required by "actions/checkout"
+          # "unzip" required by "android-actions/setup-android"
+          sudo apt update
+          sudo apt install -y git unzip
+
       - uses: actions/checkout@v4
         with:
           submodules: 'true'
@@ -85,6 +97,12 @@ jobs:
       checks: write
       pull-requests: write
     steps:
+      - run: |
+          # "git" required by "actions/checkout"
+          # "unzip" required by "android-actions/setup-android"
+          sudo apt update
+          sudo apt install -y git unzip
+
       - uses: actions/checkout@v4
         with:
           submodules: 'true'
