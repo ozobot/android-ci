@@ -19,6 +19,10 @@ jobs:
   publish-aar:
     runs-on: prague-runners
     steps:
+      - run: |
+          sudo apt update
+          sudo apt install -y git
+
       - uses: actions/checkout@v4
         with:
           submodules: 'true'
