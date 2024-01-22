@@ -14,7 +14,7 @@ on:
 
 jobs:
   test:
-    runs-on: prague-runners
+    runs-on: prague-runners-dind
     permissions:
       contents: read
       issues: read
