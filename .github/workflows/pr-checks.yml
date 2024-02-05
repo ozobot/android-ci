@@ -49,7 +49,7 @@ jobs:
         with:
           arguments: test
 
-      - uses: EnricoMi/publish-unit-test-result-action@v2.12.0
+      - uses: EnricoMi/publish-unit-test-result-action@v2.13.0
         if: always()
         with:
           junit_files: "**/test-results/**/*.xml"
