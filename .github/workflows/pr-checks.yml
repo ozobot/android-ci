@@ -21,11 +21,12 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - run: |
+      - uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
           # "git" required by "actions/checkout"
           # "unzip" required by "android-actions/setup-android"
-          sudo apt update
-          sudo apt install -y git unzip
+          packages: git unzip
+          version: 1.0
 
       - uses: actions/checkout@v4
         with:
@@ -62,11 +63,12 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - run: |
+      - uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
           # "git" required by "actions/checkout"
           # "unzip" required by "android-actions/setup-android"
-          sudo apt update
-          sudo apt install -y git unzip
+          packages: git unzip
+          version: 1.0
 
       - uses: actions/checkout@v4
         with:
@@ -97,11 +99,12 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - run: |
+      - uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
           # "git" required by "actions/checkout"
           # "unzip" required by "android-actions/setup-android"
-          sudo apt update
-          sudo apt install -y git unzip
+          packages: git unzip
+          version: 1.0
 
       - uses: actions/checkout@v4
         with:
