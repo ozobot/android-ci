@@ -9,7 +9,7 @@ on:
       maintainer:
         required: false
         type: string
-        default: "@diareuse"
+        default: "diareuse"
     secrets:
       AUTH_TOKEN:
         required: true
