@@ -20,7 +20,7 @@ jobs:
       repository-projects: write
     if: github.actor == 'dependabot[bot]'
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/github-cli
+      - uses: ozobot/anvil-ci/.github/actions/github-cli@master
       - name: Add assignee to dependabot PRs
         run: gh pr edit "$PR_URL" --add-assignee "${{ inputs.maintainer }}" --add-reviewer "${{ inputs.maintainer }}"
         env:
