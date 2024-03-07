@@ -143,6 +143,11 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     steps:
       - run: |
+          set -e
+          sudo apt update
+          sudo apt install wget
+      - run: |
+          set -e
           # "gh" is required by dependabot actions
           sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
           && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
@@ -164,6 +169,11 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     steps:
       - run: |
+          set -e
+          sudo apt update
+          sudo apt install wget
+      - run: |
+          set -e
           # "gh" is required by dependabot actions
           sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
           && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
