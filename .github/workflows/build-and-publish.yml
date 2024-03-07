@@ -19,7 +19,7 @@ jobs:
   publish-aar:
     runs-on: prague-runners
     steps:
-      - uses: ./.github/actions/android
+      - uses: ozobot/anvil-ci/.github/actions/android
         with:
           token: ${{ secrets.AUTH_TOKEN }}
           user: ${{ secrets.AUTH_USER }}

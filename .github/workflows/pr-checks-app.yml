@@ -25,7 +25,7 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - uses: ./.github/actions/android
+      - uses: ozobot/anvil-ci/.github/actions/android
         with:
           token: ${{ secrets.AUTH_TOKEN }}
           user: ${{ secrets.AUTH_USER }}
@@ -47,7 +47,7 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - uses: ./.github/actions/android
+      - uses: ozobot/anvil-ci/.github/actions/android
         with:
           token: ${{ secrets.AUTH_TOKEN }}
           user: ${{ secrets.AUTH_USER }}
@@ -63,11 +63,11 @@ jobs:
 
   merge:
     needs: [ test, lint ]
-    uses: ./.github/workflows/dependabot-merge.yml
+    uses: ozobot/anvil-ci/.github/workflows/dependabot-merge.yml
     secrets: inherit
 
   assign:
-    uses: ./.github/workflows/dependabot-assign.yml
+    uses: ozobot/anvil-ci/.github/workflows/dependabot-assign.yml
     with:
       maintainer: ${{ inputs.maintainer }}
     secrets: inherit
