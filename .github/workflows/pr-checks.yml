@@ -10,6 +10,10 @@ on:
         required: false
         type: string
         default: "diareuse"
+      is_library:
+        required: false
+        type: boolean
+        default: true
     secrets:
       AUTH_TOKEN:
         required: true
@@ -61,6 +65,7 @@ jobs:
 
   compatibility:
     runs-on: prague-runners
+    if: ${{ inputs.is_library }}
     permissions:
       contents: read
       issues: read
