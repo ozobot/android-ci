@@ -26,9 +26,10 @@ jobs:
       pull-requests: write
     steps:
       - run: |
+          set -e
           # "git" required by "actions/checkout"
           # "unzip" required by "android-actions/setup-android"
-          sudo apt update
+          sudo apt update -y
           sudo apt install -y git unzip
 
       - uses: actions/checkout@v4
@@ -67,9 +68,10 @@ jobs:
       pull-requests: write
     steps:
       - run: |
+          set -e
           # "git" required by "actions/checkout"
           # "unzip" required by "android-actions/setup-android"
-          sudo apt update
+          sudo apt update -y
           sudo apt install -y git unzip
 
       - uses: actions/checkout@v4
@@ -102,9 +104,10 @@ jobs:
       pull-requests: write
     steps:
       - run: |
+          set -e
           # "git" required by "actions/checkout"
           # "unzip" required by "android-actions/setup-android"
-          sudo apt update
+          sudo apt update -y
           sudo apt install -y git unzip
 
       - uses: actions/checkout@v4
@@ -144,8 +147,8 @@ jobs:
     steps:
       - run: |
           set -e
-          sudo apt update
-          sudo apt install wget
+          sudo apt update -y
+          sudo apt install -y wget
       - run: |
           set -e
           # "gh" is required by dependabot actions
@@ -170,8 +173,8 @@ jobs:
     steps:
       - run: |
           set -e
-          sudo apt update
-          sudo apt install wget
+          sudo apt update -y
+          sudo apt install -y wget
       - run: |
           set -e
           # "gh" is required by dependabot actions
