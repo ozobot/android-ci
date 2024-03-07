@@ -161,7 +161,7 @@ jobs:
         run: gh pr merge --rebase "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GH_TOKEN: ${{secrets.AUTH_TOKEN}}
 
   dependabot-prep:
     runs-on: prague-runners
@@ -187,4 +187,4 @@ jobs:
         run: gh pr edit "$PR_URL" --add-assignee "${{ inputs.maintainer }}" --add-reviewer "${{ inputs.maintainer }}"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GH_TOKEN: ${{secrets.AUTH_TOKEN}}
