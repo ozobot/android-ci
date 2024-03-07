@@ -1,0 +1,53 @@
+name: Prepare for Android
+description: Prepares Android runtime (ie. installs java and sets everything up)
+inputs:
+  token:
+    required: true
+    description: "Your GitHub token"
+  user:
+    required: true
+    description: "Your GitHub username"
+  refName:
+    required: false
+    description: "Reference to set the version name to; usually github.ref_name. Must be specified together with refType"
+  refType:
+    required: false
+    description: "Reference to infer the version name from; usually github.ref_type. Must be specified together with refName"
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -e
+        # "git" required by "actions/checkout"
+        # "unzip" required by "android-actions/setup-android"
+        sudo apt update -y
+        sudo apt install -y git unzip
+
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'true'
+        token: ${{ inputs.token }}
+
+    - shell: bash
+      if: ${{ inputs.refName && inputs.refType }}
+      run: |
+        refName=${{ inputs.refName }}
+        refType=${{ inputs.refType }}
+        if [ $refType = "branch" ]; then
+          refName="$refName-SNAPSHOT"
+        fi
+        echo "VERSION_NAME=$refName" >> gradle.properties
+
+    - shell: bash
+      run: |
+        echo "GithubPassword=${{ inputs.token }}" >> gradle.properties
+        echo "GithubUsername=${{ inputs.user }}" >> gradle.properties
+
+    - uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: temurin
+        cache: gradle
+
+    - uses: android-actions/setup-android@v3

@@ -1,0 +1,23 @@
+name: Dependabot Merge
+
+on:
+  workflow_call:
+    secrets:
+      AUTH_TOKEN:
+        required: true
+
+jobs:
+  merge:
+    runs-on: prague-runners
+    permissions:
+      pull-requests: write
+      issues: write
+      repository-projects: write
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: ./.github/actions/github-cli
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.AUTH_TOKEN}}

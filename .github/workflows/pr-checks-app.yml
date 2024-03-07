@@ -39,23 +39,6 @@ jobs:
         with:
           junit_files: "**/test-results/**/*.xml"
 
-  compatibility:
-    runs-on: prague-runners
-    permissions:
-      contents: read
-      issues: read
-      checks: write
-      pull-requests: write
-    steps:
-      - uses: ./.github/actions/android
-        with:
-          token: ${{ secrets.AUTH_TOKEN }}
-          user: ${{ secrets.AUTH_USER }}
-
-      - uses: gradle/gradle-build-action@v3.1.0
-        with:
-          arguments: apiCheck
-
   lint:
     runs-on: prague-runners
     permissions:
@@ -79,7 +62,7 @@ jobs:
           path: '**/merge.xml'
 
   merge:
-    needs: [ test, compatibility, lint ]
+    needs: [ test, lint ]
     uses: ./.github/workflows/dependabot-merge.yml
     secrets: inherit
 

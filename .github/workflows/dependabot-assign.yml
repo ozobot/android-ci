@@ -1,0 +1,28 @@
+name: Dependabot Merge
+
+on:
+  workflow_call:
+    inputs:
+      maintainer:
+        required: false
+        type: string
+        default: "diareuse"
+    secrets:
+      AUTH_TOKEN:
+        required: true
+
+jobs:
+  merge:
+    runs-on: prague-runners
+    permissions:
+      pull-requests: write
+      issues: write
+      repository-projects: write
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: ./.github/actions/github-cli
+      - name: Add assignee to dependabot PRs
+        run: gh pr edit "$PR_URL" --add-assignee "${{ inputs.maintainer }}" --add-reviewer "${{ inputs.maintainer }}"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.AUTH_TOKEN}}

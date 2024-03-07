@@ -19,36 +19,12 @@ jobs:
   publish-aar:
     runs-on: prague-runners
     steps:
-      - run: |
-          # "git" required by "actions/checkout"
-          # "unzip" required by "android-actions/setup-android"
-          sudo apt update
-          sudo apt install -y git unzip
-
-      - uses: actions/checkout@v4
+      - uses: ./.github/actions/android
         with:
-          submodules: 'true'
           token: ${{ secrets.AUTH_TOKEN }}
-
-      - run: |
-          refName=${{ inputs.refName }}
-          refType=${{ inputs.refType }}
-          if [ $refType = "branch" ]; then
-            refName="$refName-SNAPSHOT"
-          fi
-          echo "VERSION_NAME=$refName" >> gradle.properties
-          echo "GithubPassword=${{ secrets.AUTH_TOKEN }}" >> gradle.properties
-          echo "GithubUsername=${{ secrets.AUTH_USER }}" >> gradle.properties
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: temurin
-          cache: gradle
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+          user: ${{ secrets.AUTH_USER }}
+          refName: ${{ inputs.refName }}
+          refType: ${{ inputs.refType }}
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v3.1.0
