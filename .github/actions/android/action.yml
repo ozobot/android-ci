@@ -29,6 +29,11 @@ runs:
         submodules: 'true'
         token: ${{ inputs.token }}
 
+    - uses: actions/cache@v4
+      id: cache-android
+      with:
+        key: ${{ runner.os }}-android
+
     - shell: bash
       if: ${{ inputs.refName && inputs.refType }}
       run: |
