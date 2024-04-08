@@ -32,6 +32,10 @@ runs:
     - uses: actions/cache@v4
       id: cache-android
       with:
+        path: |
+          ~/.gradle
+          ~/.m2/repository
+          ~/.android
         key: ${{ runner.os }}-android
 
     - shell: bash
