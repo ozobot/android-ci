@@ -30,7 +30,7 @@ jobs:
           token: ${{ secrets.AUTH_TOKEN }}
           user: ${{ secrets.AUTH_USER }}
 
-      - uses: gradle/gradle-build-action@v3.1.0
+      - uses: gradle/gradle-build-action@v3.2.0
         with:
           arguments: test
 
@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.AUTH_TOKEN }}
           user: ${{ secrets.AUTH_USER }}
 
-      - uses: gradle/gradle-build-action@v3.1.0
+      - uses: gradle/gradle-build-action@v3.2.0
         with:
           arguments: detekt
 
