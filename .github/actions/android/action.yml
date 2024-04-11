@@ -16,7 +16,8 @@ inputs:
 runs:
   using: composite
   steps:
-    - shell: bash
+    - name: Install System Dependencies
+      shell: bash
       run: |
         set -e
         # "git" required by "actions/checkout"
@@ -24,12 +25,14 @@ runs:
         sudo apt update -y
         sudo apt install -y git unzip
 
-    - uses: actions/checkout@v4
+    - name: Download repository
+      uses: actions/checkout@v4
       with:
         submodules: 'true'
         token: ${{ inputs.token }}
 
-    - uses: actions/cache@v4
+    - name: Enable cache
+      uses: actions/cache@v4
       id: cache-android
       with:
         path: |
@@ -38,7 +41,8 @@ runs:
           ~/.android
         key: ${{ runner.os }}-android
 
-    - shell: bash
+    - name: Set VERSION_NAME variable (maven)
+      shell: bash
       if: ${{ inputs.refName && inputs.refType }}
       run: |
         refName=${{ inputs.refName }}
@@ -48,15 +52,26 @@ runs:
         fi
         echo "VERSION_NAME=$refName" >> gradle.properties
 
-    - shell: bash
+    - name: Set APP_VERSION_* variables (apk)
+      shell: bash
+      run: |
+        versionName="${{ github.ref_name }}-${{ github.sha }}"
+        versionCode=${{ github.run_number }}
+        echo "APP_VERSION_NAME=$versionName" >> gradle.properties
+        echo "APP_VERSION_CODE=$versionCode" >> gradle.properties
+
+    - name: Set Github* variables (maven)
+      shell: bash
       run: |
         echo "GithubPassword=${{ inputs.token }}" >> gradle.properties
         echo "GithubUsername=${{ inputs.user }}" >> gradle.properties
 
-    - uses: actions/setup-java@v4
+    - name: Setup Java
+      uses: actions/setup-java@v4
       with:
         java-version: 17
         distribution: temurin
         cache: gradle
 
-    - uses: android-actions/setup-android@v3
+    - name: Setup Android
+      uses: android-actions/setup-android@v3
