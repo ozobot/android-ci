@@ -55,7 +55,9 @@ runs:
     - name: Set APP_VERSION_* variables (apk)
       shell: bash
       run: |
-        versionName="${{ github.ref_name }}-${{ github.sha }}"
+        sha=${{ github.sha }}
+        sha=${sha:0:7}
+        versionName="${{ github.ref_name }}-$sha"
         versionCode=${{ github.run_number }}
         echo "APP_VERSION_NAME=$versionName" >> gradle.properties
         echo "APP_VERSION_CODE=$versionCode" >> gradle.properties
