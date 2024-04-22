@@ -27,6 +27,6 @@ jobs:
           refType: ${{ inputs.refType }}
 
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v3.3.0
+        uses: gradle/gradle-build-action@v3.3.1
         with:
           arguments: publishAllPublicationsToGithubRepository --continue
