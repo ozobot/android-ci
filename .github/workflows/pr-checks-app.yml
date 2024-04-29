@@ -30,11 +30,11 @@ jobs:
           token: ${{ secrets.AUTH_TOKEN }}
           user: ${{ secrets.AUTH_USER }}
 
-      - uses: gradle/gradle-build-action@v3.3.2
+      - uses: gradle/gradle-build-action@v3
         with:
           arguments: test
 
-      - uses: EnricoMi/publish-unit-test-result-action@v2.16.1
+      - uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           junit_files: "**/test-results/**/*.xml"
@@ -52,11 +52,11 @@ jobs:
           token: ${{ secrets.AUTH_TOKEN }}
           user: ${{ secrets.AUTH_USER }}
 
-      - uses: gradle/gradle-build-action@v3.3.2
+      - uses: gradle/gradle-build-action@v3
         with:
           arguments: detekt
 
-      - uses: jwgmeligmeyling/checkstyle-github-action@v1.2
+      - uses: jwgmeligmeyling/checkstyle-github-action@v1
         if: always()
         with:
           path: '**/merge.xml'
