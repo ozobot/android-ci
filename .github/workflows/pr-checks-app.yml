@@ -26,9 +26,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: ozobot/anvil-ci/.github/actions/android@master
-        with:
-          token: ${{ secrets.AUTH_TOKEN }}
-          user: ${{ secrets.AUTH_USER }}
 
       - uses: gradle/gradle-build-action@v3
         with:
@@ -48,9 +45,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: ozobot/anvil-ci/.github/actions/android@master
-        with:
-          token: ${{ secrets.AUTH_TOKEN }}
-          user: ${{ secrets.AUTH_USER }}
 
       - uses: gradle/gradle-build-action@v3
         with:

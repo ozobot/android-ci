@@ -1,12 +1,12 @@
 name: Prepare for Android
 description: Prepares Android runtime (ie. installs java and sets everything up)
 inputs:
-  token:
-    required: true
-    description: "Your GitHub token"
-  user:
-    required: true
-    description: "Your GitHub username"
+  mavenPassword:
+    required: false
+    description: "Your Maven token"
+  mavenUsername:
+    required: false
+    description: "Your Maven username"
   refName:
     required: false
     description: "Reference to set the version name to; usually github.ref_name. Must be specified together with refType"
@@ -27,9 +27,6 @@ runs:
 
     - name: Download repository
       uses: actions/checkout@v4
-      with:
-        submodules: 'true'
-        token: ${{ inputs.token }}
 
     - name: Enable cache
       uses: actions/cache@v4
@@ -64,9 +61,10 @@ runs:
 
     - name: Set Github* variables (maven)
       shell: bash
+      if: ${{ inputs.mavenPassword && inputs.mavenUsername }}
       run: |
-        echo "GithubPassword=${{ inputs.token }}" >> gradle.properties
-        echo "GithubUsername=${{ inputs.user }}" >> gradle.properties
+        echo "MavenPassword=${{ inputs.mavenPassword }}" >> gradle.properties
+        echo "MavenUsername=${{ inputs.mavenUsername }}" >> gradle.properties
 
     - name: Setup Java
       uses: actions/setup-java@v4

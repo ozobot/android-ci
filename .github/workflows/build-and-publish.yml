@@ -10,19 +10,19 @@ on:
         required: true
         type: string
     secrets:
-      AUTH_TOKEN:
+      MAVEN_PASSWORD:
         required: true
-      AUTH_USER:
+      MAVEN_USERNAME:
         required: true
 
 jobs:
-  publish-aar:
+  publish-artifacts:
     runs-on: prague-runners
     steps:
       - uses: ozobot/anvil-ci/.github/actions/android@master
         with:
-          token: ${{ secrets.AUTH_TOKEN }}
-          user: ${{ secrets.AUTH_USER }}
+          mavenPassword: ${{ secrets.MAVEN_PASSWORD }}
+          mavenUsername: ${{ secrets.MAVEN_USERNAME }}
           refName: ${{ inputs.refName }}
           refType: ${{ inputs.refType }}
 
