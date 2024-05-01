@@ -14,6 +14,10 @@ on:
         required: true
       MAVEN_USERNAME:
         required: true
+      KEYSTORE_FILE:
+        required: true
+      KEYSTORE_PROPERTIES:
+        required: true
 
 jobs:
   publish-artifacts:
@@ -23,6 +27,8 @@ jobs:
         with:
           mavenPassword: ${{ secrets.MAVEN_PASSWORD }}
           mavenUsername: ${{ secrets.MAVEN_USERNAME }}
+          keystore: ${{ secrets.KEYSTORE_FILE }}
+          keystoreProperties: ${{ secrets.KEYSTORE_PROPERTIES }}
           refName: ${{ inputs.refName }}
           refType: ${{ inputs.refType }}
 

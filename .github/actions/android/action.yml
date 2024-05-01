@@ -1,6 +1,12 @@
 name: Prepare for Android
 description: Prepares Android runtime (ie. installs java and sets everything up)
 inputs:
+  keystore:
+    required: false
+    description: "Keystore Base64 encoded string"
+  keystoreProperties:
+    required: false
+    description: "Keystore properties used for signing"
   mavenPassword:
     required: false
     description: "Your Maven token"
@@ -23,7 +29,7 @@ runs:
         # "git" required by "actions/checkout"
         # "unzip" required by "android-actions/setup-android"
         sudo apt update -y
-        sudo apt install -y git unzip
+        sudo apt install -y git unzip coreutils
 
     - name: Download repository
       uses: actions/checkout@v4
@@ -58,6 +64,16 @@ runs:
         versionCode=${{ github.run_number }}
         echo "APP_VERSION_NAME=$versionName" >> gradle.properties
         echo "APP_VERSION_CODE=$versionCode" >> gradle.properties
+
+    - name: Unwrap platform.* for signing
+      shell: bash
+      if: ${{ inputs.keystore && inputs.keystoreProperties }}
+      run: |
+        keystore=${{ inputs.keystore }}
+        keystoreProperties=${{ inputs.keystoreProperties }}
+        
+        echo $keystore | base64 --decode > platform.keystore
+        echo $keystoreProperties | base64 --decode > platform.properties
 
     - name: Set Github* variables (maven)
       shell: bash
