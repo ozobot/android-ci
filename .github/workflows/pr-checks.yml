@@ -10,6 +10,9 @@ on:
         required: false
         type: string
         default: "diareuse"
+    secrets:
+      AUTH_TOKEN:
+        required: true
 
 jobs:
   test:

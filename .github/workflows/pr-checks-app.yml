@@ -13,8 +13,6 @@ on:
     secrets:
       AUTH_TOKEN:
         required: true
-      AUTH_USER:
-        required: true
 
 jobs:
   test:
