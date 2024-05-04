@@ -14,6 +14,10 @@ on:
         required: false
         type: boolean
         default: true
+      android:
+        required: false
+        type: boolean
+        default: true
     secrets:
       AUTH_TOKEN:
         required: true
@@ -29,6 +33,7 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/checkout@master
       - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
+        if: ${{ inputs.android }}
 
       - uses: gradle/gradle-build-action@v3
         with:
@@ -48,6 +53,7 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/checkout@master
       - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
+        if: ${{ inputs.android }}
 
       - uses: gradle/gradle-build-action@v3
         with:
@@ -63,6 +69,7 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/checkout@master
       - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
+        if: ${{ inputs.android }}
 
       - uses: gradle/gradle-build-action@v3
         with:
