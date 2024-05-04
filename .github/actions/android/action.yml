@@ -10,18 +10,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install System Dependencies
-      shell: bash
-      run: |
-        set -e
-        # "git" required by "actions/checkout"
-        # "unzip" required by "android-actions/setup-android"
-        sudo apt update -y
-        sudo apt install -y git unzip coreutils
-
-    - name: Download repository
-      uses: actions/checkout@v4
-
     - name: Enable cache
       uses: actions/cache@v4
       id: cache-android
