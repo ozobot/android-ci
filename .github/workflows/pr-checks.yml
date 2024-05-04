@@ -10,38 +10,43 @@ on:
         required: false
         type: string
         default: "diareuse"
+      checkCompatibility:
+        required: false
+        type: boolean
+        default: true
     secrets:
       AUTH_TOKEN:
         required: true
 
 jobs:
   test:
-    runs-on: prague-runners-dind
+    runs-on: prague-runners
     permissions:
       contents: read
-      issues: read
       checks: write
       pull-requests: write
     steps:
+      - uses: ozobot/anvil-ci/.github/actions/checkout@master
+      - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
 
       - uses: gradle/gradle-build-action@v3
         with:
           arguments: test
 
-      - uses: EnricoMi/publish-unit-test-result-action@v2
+      - uses: EnricoMi/publish-unit-test-result-action/linux@v2
         if: always()
         with:
           junit_files: "**/test-results/**/*.xml"
 
   compatibility:
     runs-on: prague-runners
+    if: ${{ inputs.checkCompatibility }}
     permissions:
       contents: read
-      issues: read
-      checks: write
-      pull-requests: write
     steps:
+      - uses: ozobot/anvil-ci/.github/actions/checkout@master
+      - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
 
       - uses: gradle/gradle-build-action@v3
@@ -52,10 +57,11 @@ jobs:
     runs-on: prague-runners
     permissions:
       contents: read
-      issues: read
       checks: write
       pull-requests: write
     steps:
+      - uses: ozobot/anvil-ci/.github/actions/checkout@master
+      - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
 
       - uses: gradle/gradle-build-action@v3

@@ -1,0 +1,50 @@
+name: Prepare for JVM
+description: Prepares JVM runtime
+inputs:
+  mavenPassword:
+    required: false
+    description: "Your Maven token"
+  mavenUsername:
+    required: false
+    description: "Your Maven username"
+  javaVersion:
+    required: false
+    default: "17"
+    description: "Java level"
+
+runs:
+  using: composite
+  steps:
+    - name: Enable cache
+      uses: actions/cache@v4
+      id: cache-jvm
+      with:
+        path: |
+          ~/.gradle
+          ~/.m2/repository
+        key: ${{ runner.os }}-jvm
+
+    - name: Set Maven* variables
+      shell: bash
+      if: ${{ inputs.mavenPassword && inputs.mavenUsername }}
+      run: |
+        echo "MavenPassword=${{ inputs.mavenPassword }}" >> gradle.properties
+        echo "MavenUsername=${{ inputs.mavenUsername }}" >> gradle.properties
+
+    - name: Set VERSION_NAME variable (maven)
+      shell: bash
+      if: ${{ inputs.refName && inputs.refType }}
+      run: |
+        refName=${{ github.ref_name }}
+        refType=${{ github.ref_type }}
+        if [ $refType = "branch" ]; then
+          refName="$refName-SNAPSHOT"
+        fi
+        echo "VERSION_NAME=$refName" >> gradle.properties
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ inputs.javaVersion }}
+        distribution: temurin
+        cache: gradle

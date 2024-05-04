@@ -2,13 +2,6 @@ name: Build and Publish
 
 on:
   workflow_call:
-    inputs:
-      refName:
-        required: true
-        type: string
-      refType:
-        required: true
-        type: string
     secrets:
       MAVEN_PASSWORD:
         required: true
@@ -23,14 +16,11 @@ jobs:
   publish-artifacts:
     runs-on: prague-runners
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/android@master
+      - uses: ozobot/anvil-ci/.github/actions/checkout@master
+      - uses: ozobot/anvil-ci/.github/actions/jvm@master
         with:
           mavenPassword: ${{ secrets.MAVEN_PASSWORD }}
           mavenUsername: ${{ secrets.MAVEN_USERNAME }}
-          keystore: ${{ secrets.KEYSTORE_FILE }}
-          keystoreProperties: ${{ secrets.KEYSTORE_PROPERTIES }}
-          refName: ${{ inputs.refName }}
-          refType: ${{ inputs.refType }}
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v3

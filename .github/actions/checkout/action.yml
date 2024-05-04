@@ -1,0 +1,18 @@
+name: Checkout
+description: Prepares and checks out
+
+runs:
+  using: composite
+  steps:
+    - name: Install System Dependencies
+      shell: bash
+      run: |
+        set -e
+        # "git" required by "actions/checkout"
+        # "unzip" required by "android-actions/setup-android"
+        # "binutils fakeroot" required by "jpackage"
+        sudo apt update -y
+        sudo apt install -y git unzip coreutils binutils fakeroot
+
+    - name: Download repository
+      uses: actions/checkout@v4
