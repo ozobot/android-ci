@@ -33,7 +33,6 @@ runs:
 
     - name: Set VERSION_NAME variable (maven)
       shell: bash
-      if: ${{ inputs.refName && inputs.refType }}
       run: |
         refName=${{ github.ref_name }}
         refType=${{ github.ref_type }}
