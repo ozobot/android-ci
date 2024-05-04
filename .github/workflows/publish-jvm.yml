@@ -7,10 +7,6 @@ on:
         required: true
       MAVEN_USERNAME:
         required: true
-      KEYSTORE_FILE:
-        required: true
-      KEYSTORE_PROPERTIES:
-        required: true
 
 jobs:
   publish-artifacts:
