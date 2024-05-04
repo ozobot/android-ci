@@ -18,7 +18,8 @@ jobs:
           mavenPassword: ${{ secrets.MAVEN_PASSWORD }}
           mavenUsername: ${{ secrets.MAVEN_USERNAME }}
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v3
-        with:
-          arguments: publish --continue
+        run: ./gradlew publish --continue
