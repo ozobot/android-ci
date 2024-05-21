@@ -11,8 +11,11 @@ runs:
         # "git" required by "actions/checkout"
         # "unzip" required by "android-actions/setup-android"
         # "binutils fakeroot" required by "jpackage"
-        sudo apt update -y
-        sudo apt install -y git unzip coreutils binutils fakeroot
+        if command -v apt-get &> /dev/null
+        then
+          sudo apt update -y
+          sudo apt install -y git unzip coreutils binutils fakeroot
+        fi  
 
     - name: Download repository
       uses: actions/checkout@v4
