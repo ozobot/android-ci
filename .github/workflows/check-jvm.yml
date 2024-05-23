@@ -36,10 +36,12 @@ jobs:
         with:
           arguments: test
 
-      - uses: EnricoMi/publish-unit-test-result-action/linux@v2
+      - uses: dorny/test-reporter@v1
         if: always()
         with:
-          junit_files: "**/test-results/**/*.xml"
+          name: Tests
+          path: "**/test-results/**/*.xml"
+          reporter: java-junit
 
   compatibility:
     runs-on: prague-runners
