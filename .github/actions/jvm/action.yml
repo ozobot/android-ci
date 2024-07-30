@@ -11,6 +11,9 @@ inputs:
     required: false
     default: "17"
     description: "Java level"
+  versionName:
+    required: false
+    description: "Version name to use instead of `github.ref_name`"
 
 runs:
   using: composite
@@ -34,10 +37,13 @@ runs:
     - name: Set VERSION_NAME variable (maven)
       shell: bash
       run: |
-        refName=${{ github.ref_name }}
-        refType=${{ github.ref_type }}
-        if [ $refType = "branch" ]; then
-          refName="$refName-SNAPSHOT"
+        refName=${{ inputs.versionName }}
+        if [ -z "$refName" ]; then
+          refName=${{ github.ref_name }}
+          refType=${{ github.ref_type }}
+          if [ $refType = "branch" ]; then
+            refName="$refName-SNAPSHOT"
+          fi
         fi
         echo "VERSION_NAME=$refName" >> gradle.properties
 
