@@ -59,6 +59,7 @@ jobs:
           arguments: apiCheck
 
   lint:
+    if: ${{ inputs.android }}
     runs-on: prague-runners
     permissions:
       contents: read
@@ -68,16 +69,9 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/checkout@master
       - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
-        if: ${{ inputs.android }}
-
       - uses: gradle/gradle-build-action@v3
         with:
-          arguments: detekt
-
-      - uses: jwgmeligmeyling/checkstyle-github-action@v1
-        if: always()
-        with:
-          path: '**/merge.xml'
+          arguments: lint
 
   merge:
     needs: [ test, compatibility, lint ]
