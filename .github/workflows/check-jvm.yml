@@ -73,15 +73,6 @@ jobs:
         with:
           arguments: lint
 
-  dependency-submission:
-    runs-on: prague-runners
-    steps:
-      - uses: ozobot/anvil-ci/.github/actions/checkout@master
-      - uses: ozobot/anvil-ci/.github/actions/jvm@master
-      - uses: ozobot/anvil-ci/.github/actions/android@master
-        if: ${{ inputs.android }}
-      - uses: gradle/actions/dependency-submission@v4
-
   merge:
     needs: [ test, compatibility, lint ]
     uses: ozobot/anvil-ci/.github/workflows/dependabot-merge.yml@master
