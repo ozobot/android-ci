@@ -1,0 +1,19 @@
+name: Checks
+
+on:
+  workflow_call:
+    inputs:
+      android:
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  dependency-submission:
+    runs-on: prague-runners
+    steps:
+      - uses: ozobot/anvil-ci/.github/actions/checkout@master
+      - uses: ozobot/anvil-ci/.github/actions/jvm@master
+      - uses: ozobot/anvil-ci/.github/actions/android@master
+        if: ${{ inputs.android }}
+      - uses: gradle/actions/dependency-submission@v4
