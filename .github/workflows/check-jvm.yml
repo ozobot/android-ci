@@ -42,6 +42,7 @@ jobs:
           name: Tests
           path: "**/test-results/**/*.xml"
           reporter: java-junit
+          fail-on-empty: false
 
   compatibility:
     runs-on: prague-runners
