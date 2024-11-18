@@ -17,7 +17,7 @@ inputs:
     type: boolean
     default: true
     required: false
-    description: "Version name to assign this build, if unassigned it uses `github.ref_name`"
+    description: "Sets variables required in order to build the projects"
 runs:
   using: composite
   steps:
