@@ -14,6 +14,8 @@ jobs:
     steps:
       - uses: ozobot/anvil-ci/.github/actions/checkout@master
       - uses: ozobot/anvil-ci/.github/actions/jvm@master
+        with:
+          setVariables: false
       - uses: ozobot/anvil-ci/.github/actions/android@master
         if: ${{ inputs.android }}
         with:
