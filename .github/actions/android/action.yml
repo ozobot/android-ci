@@ -14,8 +14,7 @@ inputs:
     required: false
     description: "Version name to assign this build, if unassigned it uses `github.ref_name`"
   setVariables:
-    type: boolean
-    default: true
+    default: "true"
     required: false
     description: "Sets variables required in order to build the projects"
 runs:
@@ -30,7 +29,7 @@ runs:
         key: ${{ runner.os }}-android
 
     - name: Set APP_VERSION_* variables (apk)
-      if: ${{ inputs.setVariables == true }}
+      if: ${{ inputs.setVariables == 'true' }}
       shell: bash
       run: |
         sha=${{ github.sha }}
