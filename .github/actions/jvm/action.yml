@@ -16,6 +16,7 @@ inputs:
     description: "Version name to use instead of `github.ref_name`"
   setVariables:
     required: false
+    default: "yes"
     description: "Sets variables required in order to build the projects"
 
 runs:
