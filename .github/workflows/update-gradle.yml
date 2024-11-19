@@ -15,11 +15,11 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/checkout@master
       - uses: ozobot/anvil-ci/.github/actions/jvm@master
         with:
-          setVariables: false
+          setVariables: ''
       - uses: ozobot/anvil-ci/.github/actions/android@master
         if: ${{ inputs.android }}
         with:
-          setVariables: false
+          setVariables: ''
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
