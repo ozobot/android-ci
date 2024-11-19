@@ -14,7 +14,7 @@ inputs:
     required: false
     description: "Version name to assign this build, if unassigned it uses `github.ref_name`"
   setVariables:
-    default: "true"
+    default: "yes"
     required: false
     description: "Sets variables required in order to build the projects"
 runs:
