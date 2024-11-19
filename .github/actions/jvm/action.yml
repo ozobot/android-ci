@@ -32,14 +32,14 @@ runs:
 
     - name: Set Maven* variables
       shell: bash
-      if: ${{ inputs.mavenPassword && inputs.mavenUsername && inputs.setVariables == "true" }}
+      if: ${{ inputs.mavenPassword && inputs.mavenUsername && inputs.setVariables == 'true' }}
       run: |
         echo "MavenPassword=${{ inputs.mavenPassword }}" >> gradle.properties
         echo "MavenUsername=${{ inputs.mavenUsername }}" >> gradle.properties
 
     - name: Set VERSION_NAME variable (maven)
       shell: bash
-      if: ${{ inputs.setVariables == "true" }}
+      if: ${{ inputs.setVariables == 'true' }}
       run: |
         refName=${{ inputs.versionName }}
         if [ -z "$refName" ]; then
