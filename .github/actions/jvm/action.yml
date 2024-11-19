@@ -33,7 +33,7 @@ runs:
 
     - name: Set Maven* variables
       shell: bash
-      if: ${{ inputs.mavenPassword && inputs.mavenUsername && inputs.setVariables }}
+      if: ${{ inputs.mavenPassword && inputs.mavenUsername }}
       run: |
         echo "MavenPassword=${{ inputs.mavenPassword }}" >> gradle.properties
         echo "MavenUsername=${{ inputs.mavenUsername }}" >> gradle.properties
