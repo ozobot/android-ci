@@ -29,7 +29,7 @@ runs:
         key: ${{ runner.os }}-android
 
     - name: Set APP_VERSION_* variables (apk)
-      if: ${{ inputs.setVariables == 'true' }}
+      if: ${{ inputs.setVariables }}
       shell: bash
       run: |
         sha=${{ github.sha }}
