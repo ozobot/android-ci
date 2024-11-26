@@ -3,10 +3,6 @@ name: Checks
 on:
   workflow_call:
     inputs:
-      maintainer:
-        required: false
-        type: string
-        default: "diareuse"
       checkCompatibility:
         required: false
         type: boolean
@@ -77,10 +73,4 @@ jobs:
   merge:
     needs: [ test, compatibility, lint ]
     uses: ozobot/anvil-ci/.github/workflows/dependabot-merge.yml@master
-    secrets: inherit
-
-  assign:
-    uses: ozobot/anvil-ci/.github/workflows/dependabot-assign.yml@master
-    with:
-      maintainer: ${{ inputs.maintainer }}
     secrets: inherit
