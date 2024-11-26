@@ -1,0 +1,19 @@
+name: release-please
+on:
+  workflow_call:
+    secrets:
+      AUTH_TOKEN:
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: prague-runners
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.AUTH_TOKEN }}
+          release-type: simple
