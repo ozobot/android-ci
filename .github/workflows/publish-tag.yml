@@ -17,3 +17,7 @@ jobs:
         with:
           token: ${{ secrets.AUTH_TOKEN }}
           release-type: java
+          include-v-in-tag: false
+          skip-github-release: true
+          extra-files:
+            - "version.txt"
