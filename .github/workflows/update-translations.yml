@@ -28,8 +28,9 @@ jobs:
         with:
           add-paths: |
             *.xml
-          commit-message: |
-            chore: update translations
+          commit-message: "feat: update translations"
           labels: i18n
           title: update translations
           body: Translations have been updated by running it through Gemini LLM.
+          base: master
+          branch: update/translations
