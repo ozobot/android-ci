@@ -23,14 +23,16 @@ jobs:
         with:
           filePath: ${{ inputs.filePath }}
           geminiApiKey: ${{ secrets.GEMINI_API_KEY }}
+      - run: |
+          git config user.name 'Gemini[bot]'
+          git config user.email 'gemini@users.noreply.github.com'
+          git add -- *.xml
+          git commit -m "feat: update translations"
+          git push -f origin update/translations
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          add-paths: |
-            *.xml
-          commit-message: "feat: update translations"
           labels: i18n
           title: update translations
           body: Translations have been updated by running it through Gemini LLM.
-          base: master
           branch: update/translations
