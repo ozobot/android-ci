@@ -7,7 +7,7 @@ from time import sleep
 import google.generativeai as genai
 
 # === STATIC ===
-QUOTA = 15  # per minute
+QUOTA = 10  # per minute
 # === STATIC ===
 
 def set_github_action_output(output_name, output_value):
