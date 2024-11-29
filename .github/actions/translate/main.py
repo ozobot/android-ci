@@ -28,7 +28,7 @@ def translate(lang: str, path: str, model):
     with open(path) as f:
         content = f.read()
 
-    intro = f"""Use the following xml code block for android resources as a source for translation. I will request translating the source to various languages, I need output of a xml code block with the same keys as in the original in the specified languages without any explanation or any other such thing. You will need to prefix character `'` with a single `\` if it is not prefixed already or replace `'` with `&#39;`. Ensure that the first `xml` tag definition is identical to the source, including version and encoding.
+    intro = f"""Use the following xml code block for android resources as a source for translation. I will request translating the source to various languages, I need output of a xml code block with the same keys as in the original in the specified languages without any explanation or any other such thing. You will need to prefix character `'` with a single `\` if it is not prefixed already or replace `'` with `&#39;`. Ensure that the first `xml` tag definition is identical to the source, including version and encoding. Optionally use a "context" attribute of a string resource to properly translate the resource to the desired language. Use the "context" propertly as a context where the translation is not straightforward and use it to find similar expression in the desired languages.
 
     ```
     {content}
