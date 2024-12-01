@@ -42,15 +42,16 @@ runs:
       shell: bash
       if: ${{ inputs.setVariables }}
       run: |
-        refName=${{ inputs.versionName }}
-        if [ -z "$refName" ]; then
-          refName=${{ github.ref_name }}
-          refType=${{ github.ref_type }}
-          if [ $refType = "branch" ]; then
-            refName="$refName-SNAPSHOT"
+        versionName=${{ inputs.versionName }}
+        if [ -z "$versionName" ]; then
+          if [ "${{ github.ref_type }}" == "branch" ]; then
+            versionName="$(jq -c -r -M ".." .release-please-manifest.json | tail -1)-SNAPSHOT"
+          else
+            echo "versionName not set type=${{github.ref_type}}, using github.ref_name=${{github.ref_name}}"
+            versionName=${{ github.ref_name }}
           fi
         fi
-        echo "VERSION_NAME=$refName" >> gradle.properties
+        echo "VERSION_NAME=$versionName" >> gradle.properties
 
     - name: Setup Java
       uses: actions/setup-java@v4
