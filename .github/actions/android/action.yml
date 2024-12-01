@@ -7,9 +7,6 @@ inputs:
   keystoreProperties:
     required: false
     description: "Keystore properties used for signing"
-  versionCode:
-    required: false
-    description: "Version code to assign this build, if unassigned it uses `github.run_number`"
   versionName:
     required: false
     description: "Version name to assign this build, if unassigned it uses `github.ref_name`"
@@ -35,18 +32,14 @@ runs:
         sha=${{ github.sha }}
         sha=${sha:0:7}
         versionName=${{ inputs.versionName }}
-        versionCode=${{ inputs.versionCode }}
-        if [ -z "$versionCode" ]; then
-          versionCode=${{ github.run_number }}
-        fi
         if [ -z "$versionName" ]; then
-          versionName=${{ github.ref_name }}
           if [ "${{ github.ref_type }}" == "branch" ]; then
-            versionName="$versionName-SNAPSHOT"
+            versionName="$(jq -c -r -M ".." .release-please-manifest.json | tail -1)-SNAPSHOT"
+          else
+            versionName=${{ github.ref_name }}
           fi
         fi
         echo "APP_VERSION_NAME=$versionName" >> gradle.properties
-        echo "APP_VERSION_CODE=$versionCode" >> gradle.properties
         echo "APP_VERSION_HASH=$sha" >> gradle.properties
 
     - name: Unwrap platform.* for signing
