@@ -33,4 +33,5 @@ jobs:
         run: ./gradlew generateVersionCode
 
       - name: Build with Gradle
+        if: always()
         run: ./gradlew publish --continue
