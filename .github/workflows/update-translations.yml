@@ -34,6 +34,6 @@ jobs:
           git push -f origin chore/update-translations
       - uses: ozobot/anvil-ci/.github/actions/github-cli@master
       - name: Create pull request
-        run: gh pr create --title "Update translations" --body "Update translations" --base master --head chore/update-translations
+        run: gh pr create --title "Update translations" --body "Updated translations as translated from Gemini LLM." --base master --head chore/update-translations
         env:
           GH_TOKEN: ${{secrets.AUTH_TOKEN}}
