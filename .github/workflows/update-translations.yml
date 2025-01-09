@@ -31,9 +31,13 @@ jobs:
       - run: |
           git add -- *.xml
           git commit -m "chore(strings): update translations"
-          git push -f origin chore/update-translations
+          git push origin chore/update-translations
       - uses: ozobot/anvil-ci/.github/actions/github-cli@master
       - name: Create pull request
-        run: gh pr create --title "Update translations" --body "Updated translations as translated from Gemini LLM." --base master --head chore/update-translations
+        run: |
+          pull_request_count=$(gh pr list -H chore/update-translations | wc -l)
+          if [ $pull_request_count -eq 0 ]; then
+            gh pr create --title "Update translations" --body "Updated translations as translated from Gemini LLM." --base master --head chore/update-translations
+          fi
         env:
           GH_TOKEN: ${{secrets.AUTH_TOKEN}}
