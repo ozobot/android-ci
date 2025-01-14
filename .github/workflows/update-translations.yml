@@ -28,10 +28,15 @@ jobs:
         with:
           filePath: ${{ inputs.filePath }}
           geminiApiKey: ${{ secrets.GEMINI_API_KEY }}
-      - run: |
+      - name: Create commit
+        run: |
           git add -- *.xml
           git commit -m "chore(strings): update translations"
+      - name: Pull changes from remote
+        run: |
           git pull -r --ff-only origin chore/update-translations > /dev/null 2>&1
+      - name: Push to remote
+        run: |
           git push origin chore/update-translations
       - uses: ozobot/anvil-ci/.github/actions/github-cli@master
       - name: Create pull request
