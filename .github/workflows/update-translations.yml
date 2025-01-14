@@ -31,6 +31,7 @@ jobs:
       - run: |
           git add -- *.xml
           git commit -m "chore(strings): update translations"
+          git pull -r --ff-only origin chore/update-translations > /dev/null 2>&1
           git push origin chore/update-translations
       - uses: ozobot/anvil-ci/.github/actions/github-cli@master
       - name: Create pull request
