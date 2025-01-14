@@ -6,10 +6,6 @@ from time import sleep
 
 import google.generativeai as genai
 
-# === STATIC ===
-QUOTA = 10  # per minute
-# === STATIC ===
-
 def set_github_action_output(output_name, output_value):
     f = open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a")
     f.write(f'{output_name}={output_value}')
@@ -63,12 +59,10 @@ def main():
                  "vi",
                  "zh", "zu"]
 
-    print(f"""Translation will be performed for {len(languages)} languages.
-This process will take approximately {len(languages) / QUOTA} minutes""")
+    print(f"""Translation will be performed for {len(languages)} languages.""")
 
     for l in languages:
         translate(l, path, model)
-        sleep(1 / QUOTA)
 
 if __name__ == "__main__":
     main()
