@@ -33,6 +33,7 @@ jobs:
           git add -- *.xml
           git commit -m "chore(strings): update translations"
       - name: Pull changes from remote
+        continue-on-error: true
         run: |
           git pull -r --ff-only origin chore/update-translations > /dev/null 2>&1
       - name: Push to remote
