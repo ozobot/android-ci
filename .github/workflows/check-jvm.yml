@@ -28,9 +28,8 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
-      - uses: gradle/gradle-build-action@v3
-        with:
-          arguments: test
+      - shell: bash
+        run: ./gradlew test --no-daemon
 
       - uses: dorny/test-reporter@v2
         if: always()
@@ -51,9 +50,8 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
-      - uses: gradle/gradle-build-action@v3
-        with:
-          arguments: apiCheck
+      - shell: bash
+        run: ./gradlew apiCheck --no-daemon
 
   lint:
     if: ${{ inputs.android }}
@@ -66,9 +64,9 @@ jobs:
       - uses: ozobot/anvil-ci/.github/actions/checkout@master
       - uses: ozobot/anvil-ci/.github/actions/jvm@master
       - uses: ozobot/anvil-ci/.github/actions/android@master
-      - uses: gradle/gradle-build-action@v3
-        with:
-          arguments: lint
+
+      - shell: bash
+        run: ./gradlew lint --no-daemon
 
   merge:
     needs: [ test, compatibility, lint ]

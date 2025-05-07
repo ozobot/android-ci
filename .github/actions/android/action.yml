@@ -54,3 +54,7 @@ runs:
 
     - name: Setup Android
       uses: android-actions/setup-android@v3
+
+    - name: Prime for build
+      shell: bash
+      run: ./gradlew preBuild --no-daemon

@@ -26,9 +26,6 @@ jobs:
           keystore: ${{ secrets.KEYSTORE_FILE }}
           keystoreProperties: ${{ secrets.KEYSTORE_PROPERTIES }}
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
       - name: Generate next version code
         run: ./gradlew generateVersionCode
 
