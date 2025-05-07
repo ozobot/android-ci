@@ -55,6 +55,10 @@ runs:
     - name: Setup Android
       uses: android-actions/setup-android@v3
 
-    - name: Prime for build
+    - name: Prime Android SDK directory
       shell: bash
-      run: ./gradlew preBuild --no-daemon
+      run: ./gradlew lint --no-daemon
+
+    - name: Replace android.jar with a system
+      shell: bash
+      run: ./gradlew tasks | grep -q "replacePlatformAndroidJar" && ./gradlew replacePlatformAndroidJar --no-daemon
