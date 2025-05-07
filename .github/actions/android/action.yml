@@ -57,7 +57,7 @@ runs:
 
     - name: Prime Android SDK directory
       shell: bash
-      run: ./gradlew lint --no-daemon
+      run: ./gradlew assemble --dry-run --no-daemon
 
     - name: Replace android.jar with a system
       shell: bash
