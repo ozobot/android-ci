@@ -61,4 +61,8 @@ runs:
 
     - name: Replace android.jar with a system
       shell: bash
-      run: ./gradlew tasks | grep -q "replacePlatformAndroidJar" && ./gradlew replacePlatformAndroidJar --no-daemon --stacktrace
+      run: |
+        OUTPUT=$(./gradlew tasks)
+        if [[ "$OUTPUT" == *"replacePlatformAndroidJar"* ]]; then
+            ./gradlew replacePlatformAndroidJar
+        fi
