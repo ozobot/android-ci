@@ -62,7 +62,7 @@ runs:
     - name: Replace android.jar with a system
       shell: bash
       run: |
-        OUTPUT=$(./gradlew tasks)
+        OUTPUT=$(./gradlew tasks --no-daemon)
         if [[ "$OUTPUT" == *"replacePlatformAndroidJar"* ]]; then
-            ./gradlew replacePlatformAndroidJar
+            ./gradlew replacePlatformAndroidJar --no-daemon
         fi

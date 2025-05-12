@@ -27,8 +27,8 @@ jobs:
           keystoreProperties: ${{ secrets.KEYSTORE_PROPERTIES }}
 
       - name: Generate next version code
-        run: ./gradlew generateVersionCode
+        run: ./gradlew generateVersionCode --no-daemon
 
       - name: Build with Gradle
         if: always()
-        run: ./gradlew publish --continue
+        run: ./gradlew publish --continue --no-daemon
