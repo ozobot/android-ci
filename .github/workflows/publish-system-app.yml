@@ -1,0 +1,42 @@
+name: Build System Apps
+
+on:
+  workflow_call:
+    secrets:
+      KEYSTORE_FILE:
+        required: true
+      KEYSTORE_PROPERTIES:
+        required: true
+
+jobs:
+  publish-artifacts:
+    runs-on: prague-runners
+    steps:
+      - uses: ozobot/anvil-ci/.github/actions/checkout@master
+      - uses: ozobot/anvil-ci/.github/actions/jvm@master
+      - uses: ozobot/anvil-ci/.github/actions/android@master
+        with:
+          keystore: ${{ secrets.KEYSTORE_FILE }}
+          keystoreProperties: ${{ secrets.KEYSTORE_PROPERTIES }}
+          setVariables: ''
+
+      - name: Generate next version code
+        run: |
+          sha=${{ github.sha }}
+          sha=${sha:0:7}
+          echo "APP_VERSION_CODE=1" >> gradle.properties
+          echo "APP_VERSION_NAME=33" >> gradle.properties 
+          echo "APP_VERSION_HASH=$sha" >> gradle.properties
+
+      - name: Build with Gradle
+        if: always()
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Upload to Github
+        uses: actions/upload-artifact@v4
+        with:
+          name: "app-release.apk"
+          path: "**/build/outputs/**/*-release.apk"
+          if-no-files-found: error
+          compression-level: 9
+          retention-days: 1
