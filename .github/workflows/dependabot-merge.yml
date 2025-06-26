@@ -15,7 +15,7 @@ jobs:
       repository-projects: write
     if: github.actor == 'dependabot[bot]'
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/github-cli@master
+      - uses: ozobot/android-ci/.github/actions/github-cli@master
       - name: Enable auto-merge for Dependabot PRs
         run: gh pr merge --rebase "$PR_URL"
         env:

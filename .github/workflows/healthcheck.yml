@@ -12,9 +12,9 @@ jobs:
   dependency-submission:
     runs-on: prague-runners
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/checkout@master
-      - uses: ozobot/anvil-ci/.github/actions/jvm@master
-      - uses: ozobot/anvil-ci/.github/actions/android@master
+      - uses: ozobot/android-ci/.github/actions/checkout@master
+      - uses: ozobot/android-ci/.github/actions/jvm@master
+      - uses: ozobot/android-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
       - uses: gradle/actions/dependency-submission@v4

@@ -23,9 +23,9 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/checkout@master
-      - uses: ozobot/anvil-ci/.github/actions/jvm@master
-      - uses: ozobot/anvil-ci/.github/actions/android@master
+      - uses: ozobot/android-ci/.github/actions/checkout@master
+      - uses: ozobot/android-ci/.github/actions/jvm@master
+      - uses: ozobot/android-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
       - shell: bash
@@ -45,9 +45,9 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/checkout@master
-      - uses: ozobot/anvil-ci/.github/actions/jvm@master
-      - uses: ozobot/anvil-ci/.github/actions/android@master
+      - uses: ozobot/android-ci/.github/actions/checkout@master
+      - uses: ozobot/android-ci/.github/actions/jvm@master
+      - uses: ozobot/android-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
       - shell: bash
@@ -61,14 +61,14 @@ jobs:
       checks: write
       pull-requests: write
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/checkout@master
-      - uses: ozobot/anvil-ci/.github/actions/jvm@master
-      - uses: ozobot/anvil-ci/.github/actions/android@master
+      - uses: ozobot/android-ci/.github/actions/checkout@master
+      - uses: ozobot/android-ci/.github/actions/jvm@master
+      - uses: ozobot/android-ci/.github/actions/android@master
 
       - shell: bash
         run: ./gradlew lint --no-daemon
 
   merge:
     needs: [ test, compatibility, lint ]
-    uses: ozobot/anvil-ci/.github/workflows/dependabot-merge.yml@master
+    uses: ozobot/android-ci/.github/workflows/dependabot-merge.yml@master
     secrets: inherit

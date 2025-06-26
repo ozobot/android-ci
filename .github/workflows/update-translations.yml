@@ -22,13 +22,13 @@ jobs:
   translate-resources:
     runs-on: prague-runners-dind
     steps:
-      - uses: ozobot/anvil-ci/.github/actions/checkout@master
+      - uses: ozobot/android-ci/.github/actions/checkout@master
       - run: |
           git config user.name 'Gemini[bot]'
           git config user.email 'gemini@users.noreply.github.com'
           git fetch origin master
           git checkout -b ${{ inputs.branch }}
-      - uses: ozobot/anvil-ci/.github/actions/translate@master
+      - uses: ozobot/android-ci/.github/actions/translate@master
         with:
           filePath: ${{ inputs.filePath }}
           geminiApiKey: ${{ secrets.GEMINI_API_KEY }}
@@ -39,7 +39,7 @@ jobs:
       - name: Push to remote
         run: |
           git push origin ${{ inputs.branch }}
-      - uses: ozobot/anvil-ci/.github/actions/github-cli@master
+      - uses: ozobot/android-ci/.github/actions/github-cli@master
       - name: Create pull request
         run: |
           gh pr create --title "Update translations" --body "Updated translations as translated from Gemini LLM." --base master --head ${{ inputs.branch }}
