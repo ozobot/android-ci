@@ -13,7 +13,7 @@ jobs:
       pull-requests: write
       issues: write
       repository-projects: write
-    if: github.actor == 'dependabot[bot]'
+    if: github.actor == 'dependabot[bot]' && (github.event_name == 'pull_request' && !contains(github.event.pull_request.title, 'SNAPSHOT'))
     steps:
       - uses: ozobot/android-ci/.github/actions/github-cli@master
       - name: Enable auto-merge for Dependabot PRs
