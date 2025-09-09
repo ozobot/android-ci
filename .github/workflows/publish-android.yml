@@ -11,6 +11,11 @@ on:
         required: true
       KEYSTORE_PROPERTIES:
         required: true
+    inputs:
+      app:
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   publish-artifacts:
@@ -27,6 +32,7 @@ jobs:
           keystoreProperties: ${{ secrets.KEYSTORE_PROPERTIES }}
 
       - name: Generate next version code
+        if: ${{ inputs.app }}
         run: ./gradlew generateVersionCode --no-daemon --stacktrace
 
       - name: Build with Gradle
