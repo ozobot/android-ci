@@ -17,7 +17,7 @@ jobs:
       - uses: ozobot/android-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
-      - uses: gradle/actions/dependency-submission@v4
+      - uses: gradle/actions/dependency-submission@v5
         with:
           dependency-graph-exclude-projects: ':buildSrc'
           dependency-graph-exclude-configurations: '.*[Tt]est(Compile|Runtime)Classpath'
