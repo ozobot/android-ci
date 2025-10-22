@@ -4,14 +4,14 @@ import re
 import sys
 from time import sleep
 
-import google.generativeai as genai
+from google import genai
 
 def set_github_action_output(output_name, output_value):
     f = open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a")
     f.write(f'{output_name}={output_value}')
     f.close()
 
-def translate(lang: str, path: str, model):
+def translate(lang: str, path: str, client):
     segments = path.split("/")
     resdir = segments[:-2]
     values = segments[-2:]
@@ -32,7 +32,10 @@ def translate(lang: str, path: str, model):
     """
 
     print(f"Generating output… ", end="")
-    response = model.generate_content(f"{intro}\ntranslate to '{lang}'")
+    response = client.models.generate_content(
+        model='gemini-2.5-pro',
+        contents=f"{intro}\ntranslate to '{lang}'"
+    )
     pattern = r"^```(?:\w+)?\s*\n(.*?)(?=^```)```"
     block: str = re.findall(pattern, response.text, re.DOTALL | re.MULTILINE)[0]
 
@@ -44,8 +47,7 @@ def translate(lang: str, path: str, model):
 
 def main():
     print("Configuring Gemini… ", end="")
-    genai.configure(api_key=os.environ["INPUT_GEMINIAPIKEY"])
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    client = genai.Client(api_key=os.environ["INPUT_GEMINIAPIKEY"])
     print("DONE")
 
     path = os.environ["INPUT_FILEPATH"]
@@ -62,7 +64,7 @@ def main():
     print(f"""Translation will be performed for {len(languages)} languages.""")
 
     for l in languages:
-        translate(l, path, model)
+        translate(l, path, client)
 
 if __name__ == "__main__":
     main()
