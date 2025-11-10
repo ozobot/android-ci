@@ -3,10 +3,14 @@ description: Uses Gemini LLM to use default english resources and translates the
 inputs:
   geminiApiKey:
     required: true
+    description:
   filePath:
     required: true
     description: "Path to the originating file without any affix. Preferably this would be an English file"
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: docker
+  image: Dockerfile
+  env:
+    GEMINI_API_KEY: ${{ inputs.geminiApiKey }}
+    SOURCE_FILE: ${{ inputs.filePath }}
