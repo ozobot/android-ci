@@ -54,7 +54,6 @@ jobs:
         run: ./gradlew apiCheck --no-daemon
 
   lint:
-    if: ${{ inputs.android }}
     runs-on: prague-runners
     permissions:
       contents: read
