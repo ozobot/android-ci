@@ -11,6 +11,11 @@ on:
         required: false
         type: boolean
         default: true
+      javaVersion:
+        required: false
+        type: string
+        default: "17"
+        description: "Java level"
     secrets:
       AUTH_TOKEN:
         required: true
@@ -25,6 +30,8 @@ jobs:
     steps:
       - uses: ozobot/android-ci/.github/actions/checkout@master
       - uses: ozobot/android-ci/.github/actions/jvm@master
+        with:
+          javaVersion: ${{ inputs.javaVersion }}
       - uses: ozobot/android-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
