@@ -54,6 +54,8 @@ jobs:
     steps:
       - uses: ozobot/android-ci/.github/actions/checkout@master
       - uses: ozobot/android-ci/.github/actions/jvm@master
+        with:
+          javaVersion: ${{ inputs.javaVersion }}
       - uses: ozobot/android-ci/.github/actions/android@master
         if: ${{ inputs.android }}
 
@@ -69,6 +71,8 @@ jobs:
     steps:
       - uses: ozobot/android-ci/.github/actions/checkout@master
       - uses: ozobot/android-ci/.github/actions/jvm@master
+        with:
+          javaVersion: ${{ inputs.javaVersion }}
       - uses: ozobot/android-ci/.github/actions/android@master
 
       - shell: bash
