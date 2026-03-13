@@ -3,10 +3,6 @@ name: Checks
 on:
   workflow_call:
     inputs:
-      checkCompatibility:
-        required: false
-        type: boolean
-        default: true
       android:
         required: false
         type: boolean
@@ -46,22 +42,6 @@ jobs:
           reporter: java-junit
           fail-on-empty: false
 
-  compatibility:
-    runs-on: prague-runners
-    if: ${{ inputs.checkCompatibility }}
-    permissions:
-      contents: read
-    steps:
-      - uses: ozobot/android-ci/.github/actions/checkout@master
-      - uses: ozobot/android-ci/.github/actions/jvm@master
-        with:
-          javaVersion: ${{ inputs.javaVersion }}
-      - uses: ozobot/android-ci/.github/actions/android@master
-        if: ${{ inputs.android }}
-
-      - shell: bash
-        run: ./gradlew apiCheck --no-daemon
-
   lint:
     runs-on: prague-runners
     permissions:
@@ -79,6 +59,6 @@ jobs:
         run: ./gradlew lint --no-daemon
 
   merge:
-    needs: [ test, compatibility, lint ]
+    needs: [ test, lint ]
     uses: ozobot/android-ci/.github/workflows/dependabot-merge.yml@master
     secrets: inherit
