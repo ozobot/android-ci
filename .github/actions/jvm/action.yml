@@ -53,6 +53,11 @@ runs:
         fi
         echo "VERSION_NAME=$versionName" >> gradle.properties
 
+    - name: Set memory
+      shell: bash
+      run: |
+        echo "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" >> gradle.properties
+
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
