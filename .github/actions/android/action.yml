@@ -53,7 +53,7 @@ runs:
         echo $keystoreProperties | base64 --decode > platform.properties
 
     - name: Setup Android
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v4
 
     - name: Prime Android SDK directory
       shell: bash
