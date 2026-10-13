@@ -54,15 +54,3 @@ runs:
 
     - name: Setup Android
       uses: android-actions/setup-android@v4
-
-    - name: Prime Android SDK directory
-      shell: bash
-      run: ./gradlew assemble --dry-run --no-daemon
-
-    - name: Replace android.jar with a system
-      shell: bash
-      run: |
-        OUTPUT=$(./gradlew tasks --no-daemon)
-        if [[ "$OUTPUT" == *"replacePlatformAndroidJar"* ]]; then
-            ./gradlew replacePlatformAndroidJar --no-daemon
-        fi

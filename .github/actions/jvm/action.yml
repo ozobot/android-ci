@@ -9,7 +9,7 @@ inputs:
     description: "Your Maven username"
   javaVersion:
     required: false
-    default: "17"
+    default: "21"
     description: "Java level"
   versionName:
     required: false
